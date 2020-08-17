@@ -26,9 +26,7 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   likewind7
-disqus_id:   		likewind7
-disqus_url: 		https://likewind7.disqus.com
+disqus_shortname:   'likewind7'
 
 # Social
 # if you don't have any of social below, comment the line.
