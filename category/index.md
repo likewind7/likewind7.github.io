@@ -1,6 +1,6 @@
 ---
 layout: category
-title: NLP
+title: All Category
 excerpt: "A List of Categories"
 comments: false
 ---
