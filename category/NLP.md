@@ -2,7 +2,7 @@
 
 layout: category
 
-title: NLP - natural language processing
+title: NLP
 
 
 ---

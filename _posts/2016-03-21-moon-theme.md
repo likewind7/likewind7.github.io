@@ -123,6 +123,9 @@ To set what links appear in the top navigation edit `_data/navigation.yml`. Use 
 
 - title: Moon
   url: http://taylantatli.me/Moon
+
+- title: Category
+  url: /category/
 {% endhighlight %}
 
 ---
