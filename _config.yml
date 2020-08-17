@@ -1,6 +1,6 @@
 # Site
 title:              likewind7
-bio:                "친하게 지내자8"
+bio:                "친하게 지내자9"
 description:        "Moon is a minimal, one column jekyll theme for your blog."
 reading_time:       true
 words_per_minute:   200
@@ -26,7 +26,9 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   taylantatli
+disqus_shortname:   likewind7
+disqus_id:   		likewind7
+disqus_url: 		https://disqus.com/by/likewind7/
 
 # Social
 # if you don't have any of social below, comment the line.
