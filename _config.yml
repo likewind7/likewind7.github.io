@@ -1,6 +1,6 @@
 # Site
 title:              likewind7
-bio:                "친하게 지내자16"
+bio:                "친하게 지내자21"
 description:        "Moon is a minimal, one column jekyll theme for your blog."
 reading_time:       true
 words_per_minute:   200
@@ -26,7 +26,7 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   'likewind7'
+disqus_shortname:   likewind7
 
 # Social
 # if you don't have any of social below, comment the line.
@@ -74,3 +74,5 @@ jekyll-mentions:
 
 # Exclude list
 exclude: [README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.json, _site, src, vendor, CNAME, LICENSE, Rakefile]
+
+comments: true
