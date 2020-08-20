@@ -102,7 +102,7 @@
 					{% assign categories_list = site_categories | split:',' | sort %}
 					{% for item in (0..site.categories.size) %}{% unless forloop.last %}
 						{% capture this_word %}{{ categories_list[item] | strip_newlines }}{% endcapture %}
-						<li><a href="{{ site.url }}/category/#nlp">{{ site.categories[this_word] }}</a></li>
+						<li><a href="{{ site.url }}/category/#nlp">{{ this_word }}</a></li>
 					{% endunless %}{% endfor %}
 				</ul>
 			</li>
