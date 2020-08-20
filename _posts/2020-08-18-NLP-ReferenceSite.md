@@ -15,6 +15,8 @@ comments: true
 
 <http://textmining.kr/>
 
+
 <https://cyc1am3n.github.io/2018/11/10/classifying_korean_movie_review.html>
+
 [Keras] KoNLPy를 이용한 한국어 영화 리뷰 감정 분석
  
