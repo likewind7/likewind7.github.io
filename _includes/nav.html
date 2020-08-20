@@ -95,15 +95,9 @@
             <li>
 				<a href="#">Category</a>
 				<ul class="dl-submenu">
-<!--					<li><a href="{{ site.url }}/category/">All Category</a></li>
+					<li><a href="{{ site.url }}/category/">All Category</a></li>
 					<li><a href="{{ site.url }}/category/#nlp">NLP</a></li>
-					<li><a href="{{ site.url }}/category/#blog">blog</a></li>-->
-					{% capture site_categories %}{% for category in site.categories %}{{ category | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-					{% assign categories_list = site_categories | split:',' | sort %}
-					{% for item in (0..site.categories.size) %}{% unless forloop.last %}
-						{% capture this_word %}{{ categories_list[item] | strip_newlines }}{% endcapture %}
-						<li><a href="{{ site.url }}/category/#nlp">{{ this_word }}</a></li>
-					{% endunless %}{% endfor %}
+					<li><a href="{{ site.url }}/category/#blog">blog</a></li>
 				</ul>
 			</li>
 			{% for link in site.data.navigation %}
