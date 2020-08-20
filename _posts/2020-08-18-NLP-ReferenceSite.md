@@ -13,7 +13,6 @@ comments: true
 ## 참고 사이트
 
 
-{% highlight css %}
 <http://textmining.kr/>
-{% endhighlight %}
 
+ 
