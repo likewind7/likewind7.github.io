@@ -4,6 +4,7 @@ title: "[스페셜리포트] 자연언어처리(NLP) 무엇인가... 그 기술�
 date: 2020-08-20
 excerpt: "https://www.aitimes.kr/news/articleView.html?idxno=15036"
 tags: [news, nlp]
+categories: [news, nlp]
 feature: https://likewind7.github.io/image/nlp_logo.jpg
 comments: true
 ---
