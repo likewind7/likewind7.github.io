@@ -3,7 +3,7 @@ layout: post
 title: "NLP 참고 사이트"
 date: 2020-08-20
 excerpt: ""
-categories : [NLP]
+categories : [nlp]
 tags: [nlp, reference]
 comments: true
 ---

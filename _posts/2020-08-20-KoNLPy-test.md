@@ -3,7 +3,7 @@ layout: post
 title: "KONLP 한국어 처리 패키지"
 date: 2020-08-20
 excerpt: "https://datascienceschool.net/view-notebook/a0237ff8f13a454c96072f868c01bc30/"
-categories : [NLP]
+categories : [nlp]
 tags: [nlp, konlp]
 comments: true
 ---
