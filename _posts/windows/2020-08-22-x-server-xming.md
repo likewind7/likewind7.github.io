@@ -26,20 +26,20 @@ x 는 client-server architecture 로 design 되어있습니다. application 이 
 https://sourceforge.net/projects/xming/ 에서 xmig server 설치
 
 {% raw %}
-sudo systemd-machine-id-setup
-sudo dbus-uuidgen — ensure
-cat /etc/machine-id
+	sudo systemd-machine-id-setup
+	sudo dbus-uuidgen — ensure
+	cat /etc/machine-id
 {% endraw %}
 
 cat 명령어를 통해 machine-id 를 확인합니다. 대충 영어와 숫자가 섞여있는 문자열이 나오면 맞다고 보시면 됩니다.
 
 {% raw %}
-sudo apt -y install x11-apps xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic
+	sudo apt -y install x11-apps xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic
 {% endraw %}
 x window 의 font를 설치합니다.
 
 {% raw %}
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
+	export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 {% endraw %}
 user의 .bashrc 에 위의 내용을 입력합니다. 
 0.0 이라고 되어있는 항목은 xming 의 view_log 옵션을 보고
