@@ -49,12 +49,12 @@ No protocol specified Error: Can't open display: 등의 오류가 날 수 있는
 
 xming 의 옵션을 보면 
 {% raw %}
-Usage...
-Xming [:<display-number>] [option]
--a #                   mouse acceleration (pixels)
--ac                    disable access control restrictions
--audit int             set audit trail level
--auth file             select authorization file
+	Usage...
+	Xming [:<display-number>] [option]
+	-a #                   mouse acceleration (pixels)
+	-ac                    disable access control restrictions
+	-audit int             set audit trail level
+	-auth file             select authorization file
 {% endraw %}
 라고 되어있는데 매우 찝찝하지만 풀어주고 해결했습니다.
 
