@@ -56,7 +56,7 @@ xming 의 옵션을 보면
 	-audit int             set audit trail level
 	-auth file             select authorization file
 {% endraw %}
-라고 되어있는데 매우 찝찝하지만 풀어주고 해결했습니다.
+라고 되어있는데 매우 찝찝하지만 풀어주거나 아니면 안되는 이유를 디버깅 해야 할 것 같습니다.
 
 
 <figure>
