@@ -25,22 +25,22 @@ x 는 client-server architecture 로 design 되어있습니다. application 이 
 ## 설치및 간단한 테스트
 https://sourceforge.net/projects/xming/ 에서 xmig server 설치
 
-{ %raw% }
+{% raw %}
 sudo systemd-machine-id-setup
 sudo dbus-uuidgen — ensure
 cat /etc/machine-id
-{ %endraw% }
+{% endraw %}
 
 cat 명령어를 통해 machine-id 를 확인합니다. 대충 영어와 숫자가 섞여있는 문자열이 나오면 맞다고 보시면 됩니다.
 
-{ %raw% }
+{% raw %}
 sudo apt -y install x11-apps xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic
-{ %endraw% }
+{% endraw %}
 x window 의 font를 설치합니다.
 
-{ %raw% }
+{% raw %}
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
-{ %endraw% }
+{% endraw %}
 user의 .bashrc 에 위의 내용을 입력합니다. 
 0.0 이라고 되어있는 항목은 xming 의 view_log 옵션을 보고
 "winMultiWindowXMsgProc - DISPLAY=127.0.0.1:0.0" 라고 되어있는 부분을 통해 파악하면 될 것 같다는 추정을 해봤습니다.
@@ -48,14 +48,14 @@ user의 .bashrc 에 위의 내용을 입력합니다.
 No protocol specified Error: Can't open display: 등의 오류가 날 수 있는데 이 때는 xming 의 아이콘에서 -ac 옵션을 넣어주시면 됩니다. 
 
 xming 의 옵션을 보면 
-{ %raw% }
+{% raw %}
 Usage...
 Xming [:<display-number>] [option]
 -a #                   mouse acceleration (pixels)
 -ac                    disable access control restrictions
 -audit int             set audit trail level
 -auth file             select authorization file
-{ %endraw% }
+{% endraw %}
 라고 되어있는데 매우 찝찝하지만 풀어주고 해결했습니다.
 
 
