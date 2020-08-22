@@ -23,9 +23,9 @@ x 는 client-server architecture 로 design 되어있습니다. application 이 
 </figure>
 
 ## 설치및 간단한 테스트
-* https://sourceforge.net/projects/xming/ 에서 xmig server 설치
+https://sourceforge.net/projects/xming/ 에서 xmig server 설치
 
-* { %raw% }
+{ %raw% }
 sudo systemd-machine-id-setup
 sudo dbus-uuidgen — ensure
 cat /etc/machine-id
@@ -33,7 +33,7 @@ cat /etc/machine-id
 
 cat 명령어를 통해 machine-id 를 확인합니다. 대충 영어와 숫자가 섞여있는 문자열이 나오면 맞다고 보시면 됩니다.
 
-* { %raw% }
+{ %raw% }
 sudo apt -y install x11-apps xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic
 { %endraw% }
 x window 의 font를 설치합니다.
