@@ -22,7 +22,7 @@ build 및 python 수행등을 wsl 에서 하고 있었는데 display 가 안되�
 
 
 ## xming X window server 
-xming 이라는 xwindow server 를 통해 graphic 출력이 가능했습니다. <https://likewind7.github.io/x-server-xming/> 참고. 제 경험상 설치 후 동작하지 않는 이유가 두 가지 있었는데 하나는 display 포트 였고 나머지 하나는 권한문제였습니다. 포트는 xming log 에 나와있는대로 수정해서 해결하였고 권한은 xming의 옵션에 -ac 를 추가하여 해결하였습니다. xeyes 라는 테스트 어플리케이션이 정상동작하는 것까지 확인하였습니다.
+xming 이라는 xwindow server 를 통해 graphic 출 력이 가능했습니다. <https://likewind7.github.io/x-server-xming/> 참고. 제 경험상 설치 후 동작하지 않는 이유가 두 가지 있었는데 하나는 display 포트 였고 나머지 하나는 권한문제였습니다. 포트는 xming log 에 나와있는대로 수정해서 해결하였고 권한은 xming의 옵션에 -ac 를 추가하여 해결하였습니다. xeyes 라는 테스트 어플리케이션이 정상동작하는 것까지 확인하였습니다.
 
 
 
@@ -34,7 +34,7 @@ xming 이라는 xwindow server 를 통해 graphic 출력이 가능했습니다. 
 {% capture images %}
 https://likewind7.github.io/image/python_gui_over_wsl.png
 {% endcapture %}
-{% include gallery images=images caption="<python gui over wsl>" cols=3 %}
+{% include gallery images=images caption="python gui over wsl" cols=3 %}
 
 
 
