@@ -14,13 +14,14 @@ Xming은 X 윈도우 시스템 디스플레이 서버에 다양한 샘플 X 도�
 <https://xming.softonic.kr/> 에서 발췌
 
 
-##  x 의 아키텍쳐
-x 는 client-server architecture 로 design 되어있습니다. application 이 client 가 되며 서버와의 통신을 통해 요청및 수신을 합니다. <https://www.tldp.org/HOWTO/XWindow-Overview-HOWTO/arch-overview.html> 에는 "client 가 그림을 어떻게 그리는지 알 필요가 없다는 것이 이점이다" 라고 되어있네요. x 에서 y 까지 라인을 그려라 라는 식의 명령줄을 전달하면 된다고 하네요. graphic driver 를 포함한 하위 레이어를 신경 쓸 필요가 없다는 거겠죠 
+##  xming 의 아키텍쳐
+xming 은 client-server architecture 로 design 되었습니다. application 이 client 가 되며 서버와의 통신을 통해 요청및 수신을 합니다. <https://www.tldp.org/HOWTO/XWindow-Overview-HOWTO/arch-overview.html> 에는 "client 가 그림을 어떻게 그리는지 알 필요가 없다는 것이 이점이다" 라고 되어있네요. 다만 "x 에서 y 까지 라인을 그려라" 라는 식의 명령줄을 전달하면 됩니다. graphic driver 를 포함한 하위 레이어를 신경 쓸 필요가 없다는 거겠죠 
 
-<figure>
-	<a href="https://likewind7.github.io/image/x_client_server_arch.png"></a>
-	<figcaption><a href="https://likewind7.github.io/image/x_client_server_arch.png" title="xming architecture">xming architecture</a>.</figcaption>
-</figure>
+{% capture images %}
+	https://likewind7.github.io/image/x_client_server_arch.png
+{% endcapture %}	
+{% include gallery images=images caption="xming architecture" cols=3 %}
+
 
 ## 설치및 간단한 테스트
 https://sourceforge.net/projects/xming/ 에서 xmig server 설치
