@@ -11,11 +11,11 @@ comments: true
 ## Windows에서 실행되는 네이티브 프로그램
 
 Xming은 X 윈도우 시스템 디스플레이 서버에 다양한 샘플 X 도구 및 응용 프로그램 (기존의 것들)을 제공합니다. 또한 디스플레이 서버에 일련의 글꼴을 제공합니다. 디스플레이 서버는 여러 언어를 지원합니다. 또한 OpenGL GLX 3D 그래픽 확장 및 Mesa 3D 기능을 제공합니다. 다른 컴퓨터에서 X11 세션을 전달하기 위해 Xming을 사용하여 안전한 방식으로 SSH (Secure Shell)를 실행할 수 있습니다. 디스플레이 서버는 Linux에서 크로스 컴파일되며 MinGW 컴파일러 제품군이 있습니다. 또한 유명한 Pthreads-Win32 멀티 스레딩 라이브러리도 함께 제공됩니다.
-<https://xming.softonic.kr/> 에서 발췌
+( <https://xming.softonic.kr/> 에서 발췌 )
 
 
 ##  xming 의 아키텍쳐
-xming 은 client-server architecture 로 design 되었습니다. application 이 client 가 되며 서버와의 통신을 통해 요청및 수신을 합니다. <https://www.tldp.org/HOWTO/XWindow-Overview-HOWTO/arch-overview.html> 에는 "client 가 그림을 어떻게 그리는지 알 필요가 없다는 것이 이점이다" 라고 되어있네요. 다만 "x 에서 y 까지 라인을 그려라" 라는 식의 명령줄을 전달하면 됩니다. graphic driver 를 포함한 하위 레이어를 신경 쓸 필요가 없다는 거겠죠 
+xming 은 client-server architecture 로 design 되어있습니다. application 이 client 가 되며 서버와의 통신을 통해 요청및 수신을 합니다. <https://www.tldp.org/HOWTO/XWindow-Overview-HOWTO/arch-overview.html> 에는 "client 가 그림을 어떻게 그리는지 알 필요가 없다는 것이 이점이다" 라고 되어있네요. 다만 "x 에서 y 까지 라인을 그려라" 라는 식의 명령줄을 전달하면 됩니다. graphic driver 를 포함한 하위 레이어를 신경 쓸 필요가 없다는 거겠죠 
 
 {% capture images %}
 	https://likewind7.github.io/image/x_client_server_arch.png
@@ -60,7 +60,7 @@ xming 의 옵션을 보면
 라고 되어있는데 매우 찝찝하지만 풀어주거나 아니면 안되는 이유를 디버깅 해야 할 것 같습니다.
 
 
-<figure>
-	<a href="https://likewind7.github.io/image/xming_eye.png"></a>
-	<figcaption><a href="https://likewind7.github.io/image/xming_eye.png" title="xming xeye test">정면을 볼 수 없는 눈동자</a>.</figcaption>
-</figure>
+{% capture images %}
+	https://likewind7.github.io/image/x_client_server_arch.png
+{% endcapture %}
+{% include gallery images=images caption="정면을 볼 수 없는 눈동자" cols=3 %}
