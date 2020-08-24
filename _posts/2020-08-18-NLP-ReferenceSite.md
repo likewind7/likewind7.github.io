@@ -29,3 +29,6 @@ comments: true
 ## KAIST 문일철 교수님 강의
  <https://www.edwith.org/machinelearning1_17>
 
+
+## KALDI 툴을 이용한 한국어 음성인식 ( zeroth project )
+ <https://bourbonkk.tistory.com/28>
