@@ -61,6 +61,6 @@ xming 의 옵션을 보면
 
 
 {% capture images %}
-	https://likewind7.github.io/image/x_client_server_arch.png
+	https://likewind7.github.io/image/xming_eye.png
 {% endcapture %}
 {% include gallery images=images caption="정면을 볼 수 없는 눈동자" cols=3 %}
