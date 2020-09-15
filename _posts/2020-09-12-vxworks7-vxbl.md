@@ -26,10 +26,12 @@ configuration 방법등 많은 것이 바뀐 것 처럼 보였습니다.
 SBC에 심어놓은 bootloader 라면 꼭 해줘야 하는일이 있을겁니다. POWERPC기준으로 썰을 풀자면
 당연히 flash(IFC) 와 DDR설정을 해 주어야 할거구요, 해당 영역에 TLB와 WINDOW를 열어줘야 할겁니다.
 변태같은 CCSBAR 위치를 다른 구성요소들과 겹치지 않게 잡아줘야 하구요 system clock 도 재설정하고, console 띄우려면 uart도 초기화하고 등등... RCW는 논외로 하죠. 
+
 -딱 잠에서 깨자마나 커널을 flash 에서 끄집어 내서 DDR로 집어던지기 위해 필요한 작업.- 혹은
 -정신을 다시 차리고 커널을 flash 에서 끄집어 내서 DDR로 집어던지기 위해 필요한 작업.- 
+
 이 작업들을 해 줘야 합니다. vxbl은 이 작업에 특화되어있는듯 보입니다. 
-왜 이런표현이 나왔냐 하면 그외에는 아무것도 없습니다.
+왜 이런표현이 썼냐하면 그외에는 아무것도 없기때문입니다.
 ethernet, PCI, 그외 peripheral들 뭐든지 불필요하다싶은건 보이지 않습니다. ethernet은 좀 넣...
 
 
@@ -40,7 +42,7 @@ ethernet, PCI, 그외 peripheral들 뭐든지 불필요하다싶은건 보이지
 내부 데이터 path 가 좀 복잡해 졌죠. 
 
 A simplified view of the dpaa_eth interfaces mapped to FMan MACs:
-
+{% highlight html %}
 dpaa_eth       /eth0\     ...       /ethN\
 driver        |      |             |      |
 -------------   ----   -----------   ----   -------------
@@ -54,8 +56,11 @@ FMan        |          |         |          |
 ---------------------------------------------------------
     FMan HW blocks: MURAM, MACs, Ports, SP
 ---------------------------------------------------------
-The dpaa_eth relation to the QMan, BMan and FMan:
+{% endhighlight %}
 
+
+The dpaa_eth relation to the QMan, BMan and FMan:
+{% highlight html %}
             ________________________________
 dpaa_eth   /            eth0                \
 driver    /                                  \
@@ -69,6 +74,8 @@ QMan HW    |FQ | |FQ | |FQs| |   |  |         |
           |        FMan QMI         |         |
           | FMan HW       FMan BMI  | BMan HW |
             -----------------------   --------
+{% endhighlight %}
+			
 vxbl에서 ethernet 통신이 가능하려면 이게 다 들어가야하니 귀찮았던건지 다이어트한 모습을 유지하고 싶었던건지
 하여튼 말쑥한 부트로더의 모습이었습니다.
 
@@ -85,10 +92,10 @@ SGMII 로 연결된 phy에 접근도 되고  auto negotiation 도 마쳤고 mema
 부트로더에서 peripheral들 초기화 해봤자 kernel 올라가면서 drvier에서 다시 초기화 하므로 저언~혀 
 상관없다고 생각했는데 안되요. 
 
-이유는 몇가지로 귀결되는데 
+이유는 두 가지로 귀결되는데 
 - 부트로더에서 집어던지는 일 외에 해줘야할 일이 더 있다. ( 이런게 있다는 것을 받아들일 수 없음. )
 - DTS에 (아참! vxworks7에 DTB 적용되었음) DPAA관련 configuration이 있는데 내가 이걸 적용안했다.
-- 뭐?.. 왜? 어쩌라고?
+
 
 분명 kernel 부팅 되면서 관련 driver들 probe attach init 까지 되는데 막무가내로 동작을 안합니다.
 뭐이런 쓰ㄹ...
