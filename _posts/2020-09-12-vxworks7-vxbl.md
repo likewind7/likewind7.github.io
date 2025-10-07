@@ -107,47 +107,63 @@ boot argument 똑같게 맞춰놓았고 kernel 도 동일하므로 부트로더�
 #### 삽질의 시작
 
 
-Apply the `half` class like so to display two images side by side that share the same caption.
+문제를 풀기 위해 먼저 두 부트로더의 실행 환경을 비교하는 것부터 시작했습니다. `fw_printenv` 값과
+vxWorks bootline 을 그대로 복사해 오고, MAC 주소·VLAN 같은 사소한 설정까지 u-boot 과 일치시키며
+변수를 최대한 제거했습니다. 그래도 인터페이스가 `UP` 된 뒤에 패킷이 한 장도 나가지 않길래 Wind River
+네트워크 포팅 가이드를 다시 읽으면서 초기화 경로를 추적했습니다.
 
-{% highlight html %}
-<figure class="half">
-    <a href="/images/image-filename-1-large.jpg"><img src="/images/image-filename-1.jpg"></a>
-    <a href="/images/image-filename-2-large.jpg"><img src="/images/image-filename-2.jpg"></a>
-    <figcaption>Caption describing these two images.</figcaption>
-</figure>
-{% endhighlight %}
+추적 과정에서는 vxWorks 에서 제공하는 `ipcom_syslogd` 와 `logDevConnect` 를 이용해 부팅 로그를 최대한
+끌어냈습니다. 특히 DPAA 관련 드라이버가 메모리를 어떻게 소비하는지 보고 싶어 QMan/BMan 초기화 지점에
+직접 printk 를 삽입했습니다. 그 결과 vxbl 경로에서만 QMan 이 참조하는 FQD 영역이 `0x00000000` 으로
+표기되는 메시지를 잡을 수 있었습니다. 런타임에서 기본값을 쓰고 있다는 얘기였고, u-boot 대비 누락된
+설정을 의심할 수 있었습니다.
 
+u-boot BSP 는 RCW 값에 맞춰 DPAA carve-out 을 자동으로 계산해 주지만, vxbl BSP 는 그런 후처리를 하지
+않는다는 사실을 문서에서 확인했습니다. `_wrLinuxQorIQPxxx.dts` 를 기반으로 만들어 둔 기존 디바이스 트리를
+확인해 보니 `fsl,bman-mem`, `fsl,qman-mem` 노드가 비어 있었습니다. 아래 로그는 그때 캡처한 것입니다.
 
-### Alternative way
+```
+[vxbl boot] qman_init(): using cgrid base 0x00000000
+[vxbl boot] qman_init(): FQD base   0x00000000
+```
 
-Another way to achieve the same result is to include `gallery` Liquid template. In this case you
-don't have to write any HTML tags – just copy a small block of code, adjust the parameters (see below)
-and fill the block with any number of links to images. You can mix relative and external links.
+결국 디바이스 트리에 carve-out 을 직접 적어 넣어야 했습니다. BSP 의 DT 소스에 다음과 같은 영역을 추가하고
+`vxprj` 에서 `DTB_REBUILD` 를 수행한 뒤 이미지를 다시 만들어 올렸습니다. 아래 단계대로 진행하면 재현할 수
+있습니다.
 
-Here is the block you might want to use:
+1. **디바이스 트리 원본 수정** – 워크스페이스의 `board/` 또는 `prj_boot/` 디렉토리 아래에 있는
+   `_wrLinuxQorIQPxxx.dts` 를 열어 아래 carve-out 정의를 붙여 넣습니다. 기존에 동일한 노드가 있다면
+   `fsl,*-mem` 속성만 채워 줍니다.
+2. **DTB 재생성** – 프로젝트 루트에서 `vxprj -s <workspace>.wpj prj_dtb rebuild` 혹은 GUI 의 *Build →
+   Rebuild Project* 를 실행해 DTB 를 다시 만듭니다. 로그에 `DTB_REBUILD` 단계가 포함되어야 합니다.
+3. **부트 이미지 갱신** – 생성된 DTB 를 `vxprj bootimage` 또는 `make export` 로 다시 패키징한 뒤 타겟 보드의
+   플래시나 TFTP 서버에 업로드합니다.
+4. **부팅 확인** – vxbl 로 부팅해 `ipcom_syslogd` 로그와 `ifconfig -a` 를 확인합니다. QMan/BMan 드라이버가
+   carve-out 주소를 올바르게 인식하면 TX/RX 카운터가 정상적으로 증가합니다.
 
-{% highlight liquid %}
-{% raw %}
-{% capture images %}
-	http://vignette2.wikia.nocookie.net/naruto/images/9/97/Hinata.png
-	http://vignette4.wikia.nocookie.net/naruto/images/7/79/Hinata_Part_II.png
-	http://vignette1.wikia.nocookie.net/naruto/images/1/15/J%C5%ABho_S%C5%8Dshiken.png
-{% endcapture %}
-{% include gallery images=images caption="Test images" cols=3 %}
-{% endraw %}
-{% endhighlight %}
+```dts
+        bman@31a000 {
+                compatible = "fsl,bman", "simple-bus";
+                status = "okay";
+                fsl,bman-mem = <0x00 0x17f00000 0x00 0x00100000>;
+        };
 
-Parameters:
+        qman@318000 {
+                compatible = "fsl,qman", "simple-bus";
+                status = "okay";
+                fsl,qman-mem = <0x00 0x18000000 0x00 0x00100000>;
+        };
+```
 
-- `caption`: Sets the caption under the gallery (see `figcaption` HTML tag above);
-- `cols`: Sets the number of columns of the gallery.
-Available values: [1..3].
+재부팅한 뒤에는 QMan/BMan 드라이버가 정상적으로 attach 되면서 `ifconfig` 에서 TX/RX 카운터가 오르기
+시작했습니다. 결국 vxbl 은 커널을 메모리로 올려 주는 일에만 집중하는 만큼, 주변 리소스 선언은 사용자가
+직접 챙겨야 한다는 교훈을 다시 확인했습니다. 동일한 문제가 다시 발생하면 위 순서대로 디바이스 트리와
+이미지를 재작성해 주면 됩니다.
 
-It will look something like this:
+마지막으로 정리하면 다음과 같습니다.
 
-{% capture images %}
-	http://vignette2.wikia.nocookie.net/naruto/images/9/97/Hinata.png
-	http://vignette4.wikia.nocookie.net/naruto/images/7/79/Hinata_Part_II.png
-	http://vignette1.wikia.nocookie.net/naruto/images/1/15/J%C5%ABho_S%C5%8Dshiken.png
-{% endcapture %}
-{% include gallery images=images caption="Test images" cols=3 %}
+1. 부트로더를 바꿀 때는 bootline·환경 변수뿐 아니라 DT 설정까지 함께 비교해야 한다.
+2. DPAA 기반 보드에서는 QMan/BMan carve-out 영역이 없으면 드라이버 초기화 자체가 실패한다.
+3. 로그가 부족하면 직접 printk 를 넣어서라도 근거를 확보하라. 삽질을 끝내는 가장 빠른 길이다.
+
+이제 남은 건 VXWorks 네트워크 스택 튜닝인데, 그건 다음 글에서 이어가려 합니다.
